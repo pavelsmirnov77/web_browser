@@ -14,14 +14,14 @@ body {
 
 .custom-textfield {
     -fx-background-color: white;
-    -fx-background-radius: 20px;
+    -fx-background-radius: 30px;
     -fx-padding: 5px 10px;
     -fx-font-size: 14px;
 }
 
 .styled-button {
     -fx-background-color: #e0e0e0;
-    -fx-background-radius: 20px;
+    -fx-background-radius: 30px;
     -fx-padding: 5px 10px;
     -fx-font-size: 14px;
 }
@@ -42,6 +42,8 @@ body {
 /* Стили для вкладок */
 .tab-pane {
     -fx-tab-max-height: 32px;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
 }
 
 .tab-header-area {

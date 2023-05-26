@@ -1,5 +1,6 @@
 package com.example.web_browser;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -22,6 +23,8 @@ public class WebApplication extends Application {
     private TabPane tabPane;
     private TextField urlField;
     private SearchHistory searchHistory;
+    private TextField searchField;
+    private Button searchButton;
 
 
 
@@ -29,7 +32,7 @@ public class WebApplication extends Application {
     public void start(Stage primaryStage) {
         tabPane = new TabPane();
         urlField = new TextField();
-        urlField.setPrefWidth(600);
+        urlField.setPrefWidth(750);
 
         urlField.getStyleClass().add("custom-textfield");
 
@@ -38,7 +41,7 @@ public class WebApplication extends Application {
         searchHistory = new SearchHistory();
 
         Button newTabButton = createStyledButton("+");
-        newTabButton.setOnAction(e -> createNewTab());
+        newTabButton.setOnAction(e -> createNewTab("Новая вкладка"));
 
         Button backButton = createStyledButton("<");
         backButton.setOnAction(e -> goBack());
@@ -63,6 +66,14 @@ public class WebApplication extends Application {
         VBox root = new VBox();
         root.getChildren().addAll(createMenuBar(), toolbar, tabPane);
 
+        searchField = new TextField();
+        searchField.setPromptText("Поиск на странице");
+        searchButton = createStyledButton("🔎");
+        searchButton.setOnAction(e -> searchOnPage());
+
+        toolbar.getChildren().addAll(searchField, searchButton);
+
+
         Scene scene = new Scene(root, 1280, 720);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
@@ -70,7 +81,7 @@ public class WebApplication extends Application {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("img.png")));
         primaryStage.show();
 
-        createNewTab();
+        createNewTab("Новая вкладка");
         searchHistory = new SearchHistory();
     }
 
@@ -101,12 +112,13 @@ public class WebApplication extends Application {
         return button;
     }
 
-    private void createNewTab() {
+    private void createNewTab(String title) {
         WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
+        WebEngine webEngine = webView.getEngine(); // Создаем новый экземпляр WebEngine для каждой вкладки
 
         Tab tab = new Tab();
         tab.setClosable(true);
+        tab.setText(title);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
@@ -114,12 +126,17 @@ public class WebApplication extends Application {
         tab.setOnClosed(e -> {
             tabPane.getTabs().remove(tab);
             if (tabPane.getTabs().isEmpty()) {
-                createNewTab();
+                createNewTab(webEngine.getTitle());
             }
         });
 
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
+                webView.setOpacity(0);
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), webView);
+                fadeIn.setFromValue(0);
+                fadeIn.setToValue(1);
+                fadeIn.play();
                 String pageTitle = webEngine.getTitle();
                 if (pageTitle != null && !pageTitle.isEmpty()) {
                     tab.setText(pageTitle);
@@ -145,7 +162,6 @@ public class WebApplication extends Application {
 
         webEngine.load("https://www.google.com");
     }
-
 
     private void loadURL(String url) {
         Tab currentTab = tabPane.getSelectionModel().getSelectedItem();
@@ -214,7 +230,7 @@ public class WebApplication extends Application {
         menuBar.getMenus().addAll(fileMenu, viewMenu, historyMenu);
 
         newWindowItem.setOnAction(e -> createNewWindow());
-        newTabItem.setOnAction(e -> createNewTab());
+        newTabItem.setOnAction(e -> createNewTab("Новая вкладка"));
         zoomItem.setOnAction(e -> showZoomDialog());
         searchHistoryItem.setOnAction(e -> showSearchHistory());
 
@@ -272,6 +288,18 @@ public class WebApplication extends Application {
         tabPane.getSelectionModel().select(searchHistoryTab);
     }
 
+    private void searchOnPage() {
+        String searchText = searchField.getText();
+        if (searchText != null && !searchText.isEmpty()) {
+            Tab currentTab = tabPane.getSelectionModel().getSelectedItem();
+            if (currentTab != null) {
+                WebView webView = (WebView) currentTab.getContent();
+                WebEngine webEngine = webView.getEngine();
+
+                webEngine.executeScript("window.find('" + searchText + "')");
+            }
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);
