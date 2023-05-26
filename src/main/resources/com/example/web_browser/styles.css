@@ -1,0 +1,109 @@
+/* styles.css */
+
+/* Общие стили */
+body {
+    -fx-font-family: Arial, sans-serif;
+}
+
+/* Стили для панели инструментов */
+.toolbar {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #ccc;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.custom-textfield {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+}
+
+.styled-button {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 20px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+}
+
+.styled-button:hover {
+    -fx-background-color: #555;
+}
+
+/* Стили для меню */
+.menu-bar {
+    -fx-background-color: #f2f2f2;
+}
+
+.menu-item:hover {
+    -fx-background-color: #ddd;
+}
+
+/* Стили для вкладок */
+.tab-pane {
+    -fx-tab-max-height: 32px;
+}
+
+.tab-header-area {
+    -fx-background-color: #f2f2f2;
+}
+
+.tab {
+    -fx-background-color: #ddd;
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.tab:selected {
+    -fx-background-color: #fff;
+    -fx-border-color: #ccc #ccc #fff #ccc;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.tab:hover {
+    -fx-background-color: #eee;
+}
+
+/* Стили для истории поиска */
+.search-history-tab {
+    -fx-background-color: #fff;
+}
+
+.search-history-list-view {
+    -fx-background-color: #fff;
+    -fx-padding: 10px;
+}
+
+.search-history-list-view .list-cell {
+    -fx-padding: 5px;
+}
+
+.search-history-list-view .list-cell:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Стили для диалогового окна масштаба */
+.dialog-pane {
+    -fx-min-width: 300px;
+}
+
+.slider {
+    -fx-padding: 20px 0;
+}
+
+.label {
+    -fx-font-size: 14px;
+}
+
+.button-bar {
+    -fx-padding: 10px 0;
+}
+
+.button-bar .button {
+    -fx-min-width: 80px;
+}
+
+/* Стили для контента веб-страницы */
+.web-view {
+    -fx-background-color: #fff;
+}
