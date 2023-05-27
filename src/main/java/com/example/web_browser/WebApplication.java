@@ -21,18 +21,19 @@ import java.util.Optional;
 public class WebApplication extends Application {
 
     private TabPane tabPane;
+    private Scene scene;
+
     private TextField urlField;
     private SearchHistory searchHistory;
     private TextField searchField;
-    private Button searchButton;
-
-
+    private boolean isDarkMode = true;
+    private Button themeToggleButton;
 
     @Override
     public void start(Stage primaryStage) {
         tabPane = new TabPane();
         urlField = new TextField();
-        urlField.setPrefWidth(750);
+        urlField.setPrefWidth(850);
 
         urlField.getStyleClass().add("custom-textfield");
 
@@ -55,12 +56,16 @@ public class WebApplication extends Application {
         Button clearButton = createStyledButton("X");
         clearButton.setOnAction(e -> urlField.clear());
 
+        themeToggleButton = createStyledButton("☀");
+        themeToggleButton.setOnAction(e -> toggleTheme());
+
+
         bindTextFieldHeight(urlField, newTabButton, backButton, forwardButton, refreshButton, clearButton);
 
         HBox toolbar = new HBox(10);
         toolbar.setPadding(new Insets(10));
         toolbar.getStyleClass().add("toolbar");
-        toolbar.getChildren().addAll(newTabButton, backButton, forwardButton, refreshButton, urlField, clearButton);
+        toolbar.getChildren().addAll(newTabButton, backButton, forwardButton, refreshButton, urlField, clearButton, themeToggleButton);
 
 
         VBox root = new VBox();
@@ -68,14 +73,14 @@ public class WebApplication extends Application {
 
         searchField = new TextField();
         searchField.setPromptText("Поиск на странице");
-        searchButton = createStyledButton("🔎");
+        Button searchButton = createStyledButton("🔎");
         searchButton.setOnAction(e -> searchOnPage());
 
         toolbar.getChildren().addAll(searchField, searchButton);
 
 
-        Scene scene = new Scene(root, 1280, 720);
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        scene = new Scene(root, 1460, 750);
+        scene.getStylesheets().add(getClass().getResource("light-theme.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Мой Браузер");
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("img.png")));
@@ -300,6 +305,20 @@ public class WebApplication extends Application {
             }
         }
     }
+
+    private void toggleTheme() {
+        if (isDarkMode) {
+            themeToggleButton.setText("\uD83C\uDF19");
+            scene.getStylesheets().remove(getClass().getResource("light-theme.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("dark-theme.css").toExternalForm());
+        } else {
+            themeToggleButton.setText("☀");
+            scene.getStylesheets().remove(getClass().getResource("dark-theme.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("light-theme.css").toExternalForm());
+        }
+        isDarkMode = !isDarkMode;
+    }
+
 
     public static void main(String[] args) {
         launch(args);

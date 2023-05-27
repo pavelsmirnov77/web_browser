@@ -1,0 +1,126 @@
+.root {
+    -fx-background-color: #303030;
+}
+body {
+    -fx-font-family: Arial, sans-serif;
+    -fx-text-fill: #ffffff;
+}
+
+/* Стили для панели инструментов */
+.toolbar {
+    -fx-background-color: #303030;
+    -fx-border-color: #ccc;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.custom-textfield {
+    -fx-background-color: white;
+    -fx-background-radius: 30px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+}
+
+.styled-button {
+    -fx-background-color: #404040;
+    -fx-background-radius: 30px;
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.styled-button:hover {
+    -fx-background-color: #555;
+}
+
+/* Стили для меню */
+.menu {
+    -fx-background-color: #303030;
+}
+
+.menu-bar {
+    -fx-background-color: #303030;
+}
+
+.menu-bar .label{
+    -fx-text-fill: #ddd;
+}
+
+.menu-item:hover {
+    -fx-background-color: #303030;
+}
+
+/* Стили для вкладок */
+.tab-pane {
+    -fx-tab-max-height: 32px;
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 120px;
+    -fx-background-color: #303030;
+}
+
+.tab-pane .tab-header-area .tab-label {
+    -fx-text-fill: #ddd;
+    -fx-background-color: #303030;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #303030;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.tab:selected {
+    -fx-background-color: #606060;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #ccc #ccc #fff #ccc;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.tab:hover {
+    -fx-background-color: #eee;
+}
+
+/* Стили для истории поиска */
+.search-history-tab {
+    -fx-background-color: #fff;
+}
+
+.search-history-list-view {
+    -fx-background-color: #fff;
+    -fx-padding: 10px;
+}
+
+.search-history-list-view .list-cell {
+    -fx-padding: 5px;
+}
+
+.search-history-list-view .list-cell:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* Стили для диалогового окна масштаба */
+.dialog-pane {
+    -fx-min-width: 300px;
+    -fx-background-color: #303030;
+}
+
+.slider {
+    -fx-padding: 20px 0;
+}
+
+.label {
+    -fx-font-size: 14px;
+}
+
+.button-bar {
+    -fx-padding: 10px 0;
+}
+
+.button-bar .button {
+    -fx-min-width: 80px;
+}
+
+/* Стили для контента веб-страницы */
+.web-view {
+    -fx-background-color: #303030;
+}
